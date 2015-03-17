@@ -4,22 +4,25 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
 public class Client implements Runnable
 {
 	//Client attributes
-	private char sId = '1' ;
 	private int Socketport = 6030;
 	private DataInputStream in;
 	private DataOutputStream out;
 	private boolean bRun;
 	private ExecutorService es;
 	private Socket sockcli = null;
+	private ApplicationRobotino app;
 	
-	public Client (ExecutorService es)
+	public Client (ExecutorService es,ApplicationRobotino app)
 	{
 		this.es = es;
+		this.app=app;
 	}
 
 	public int connexion(String url)
@@ -35,8 +38,6 @@ public class Client implements Runnable
 			try {
 				this.in = new DataInputStream(sockcli.getInputStream());
 				this.out = new DataOutputStream(sockcli.getOutputStream());
-				
-				NetworkFlow.writeMessage(out, "0"+sId); //Envoie de l'id
 			} 
 			catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -50,6 +51,14 @@ public class Client implements Runnable
 	}
 	
 	public void traitementReception(String sMessage){
+		System.out.println("Message recu par robotino : "+sMessage);
+		Object obj = JSONValue.parse(sMessage);
+		JSONObject objJson = (JSONObject) obj;
+		this.app.interpretFeature(objJson);
+		
+		JSONObject json = new JSONObject();
+		json.put("From", "tata");
+		this.writeMessage(json.toString());
 	}
 	
 	public void writeMessage(String sLeMessage){
@@ -73,21 +82,56 @@ public class Client implements Runnable
 	}
 	public void run ()
 	{	
+		
 		bRun  = true;
-//		while(sockcli.isConnected() && bRun)
-//		{
+		/*String sChaine;
+		while(bRun){
+			try {
+				sChaine = NetworkFlow.readMessage(in); //Lecture des messages venant du client
+				traitementReception(sChaine);
+			}
+			catch(EOFException a){
+				bRun = false;
+				try {
+					this.sockcli.close();
+				} 
+				catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			catch (IOException e){
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.exit(0);	
+			}	
+			Thread.yield();
+		}*/
+		
+		
+		while(sockcli.isConnected() && bRun)
+		{
+			JSONObject json = new JSONObject();
+			json.put("From", app.getIpHost());
+			json.put("To", app.getIpGestCom());
+			json.put("MsgType", "Ident");
+			json.put("EquipmentType", "Robot");
+			this.writeMessage(json.toString());
+			System.out.println("Fin de l ecoute"+json.toString());
+			bRun=false;
 //			try { 
-//				traitementReception(Flux.lectureMessage(in)); //Envoie du message
+//				traitementReception(NetworkFlow.readMessage(in)); //reception du message
+//				JSONObject json = new JSONObject();
+//				json.put("From", "tata");
+//				this.writeMessage(json.toString());
+//				System.out.println("Fin de l ecoute"+json.toString());
 //			}
 //			catch (IOException e) {
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
-//		}
-		JSONObject json = new JSONObject();
-		json.put("toto", "tata");
-		this.writeMessage(json.toString());
-		System.out.println("Fin de l ecoute"+json.toString());
+		}
+		
 		try {
 			sockcli.close();
 		} 
@@ -101,7 +145,7 @@ public class Client implements Runnable
 	{
 		int iTestCo;
 		ExecutorService es = Executors.newFixedThreadPool(3);
-		Client client = new Client(es);
+		Client client = new Client(es,new ApplicationRobotino());
 		
 		iTestCo = client.connexion("127.0.0.1");
 		

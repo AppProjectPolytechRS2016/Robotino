@@ -1,4 +1,4 @@
-public class StopRobot extends Feature {
+public class Stop extends Feature {
 	
 	private String name;
 	
@@ -12,8 +12,8 @@ public class StopRobot extends Feature {
 	/**
      * to create new ApplicationRobotino object 
      */
-	public StopRobot() {
-		name="stopRobot";
+	public Stop() {
+		name="stop";
 	}
 	
 	// runFeature

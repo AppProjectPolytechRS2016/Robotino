@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 
-public class InitRobot extends Feature {
+public class Init extends Feature {
 	
 	private String name;
 	private ArrayList<Feature> movements;
@@ -16,7 +16,7 @@ public class InitRobot extends Feature {
 	/**
      * to create new ApplicationRobotino object 
      */
-	public InitRobot() {
+	public Init() {
 		movements=new ArrayList<Feature>();
 		movements.add(new Move(0,0,90,500));
 		movements.add(new Move(0,0,-90,350));	
