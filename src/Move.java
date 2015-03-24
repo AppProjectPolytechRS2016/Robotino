@@ -1,3 +1,5 @@
+import java.awt.Image;
+
 
 public class Move extends Feature {
 	
@@ -82,12 +84,18 @@ public class Move extends Feature {
 	    
 	        long startTime = System.currentTimeMillis();
 	        long elapsedTime=0;
-
-	        while (!Thread.interrupted() && robotino.com.isConnected() && false == robotino.bumper.value()&&(elapsedTime<time))
+	        
+	        while (!Thread.interrupted() 
+	        		&& robotino.com.isConnected() 
+	        		&& false == robotino.bumper.value()
+	        		&&(elapsedTime<time)
+	        		&&(robotino.dist.voltage()<0.5))
 	        {
 				elapsedTime = System.currentTimeMillis() - startTime;
 	            robotino.omniDrive.setVelocity(xSpeed, ySpeed, thetaSpeed);
 	            robotino.com.waitForUpdate();
+	            
+	            
 	        } 
 	}
 }

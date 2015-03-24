@@ -1,8 +1,10 @@
 
 import rec.robotino.com.Bumper;
+import rec.robotino.com.Camera;
 import rec.robotino.com.Com;
 import rec.robotino.com.Motor;
 import rec.robotino.com.OmniDrive;
+import rec.robotino.com.DistanceSensor;
 
 public class Robotino implements Runnable
 {
@@ -22,6 +24,9 @@ public class Robotino implements Runnable
     private State robotState;
     private State videoState;
     private final RobotType type=RobotType.Robotino;
+    protected final DistanceSensor dist;
+    boolean busy;
+    protected final Camera cam;
     
     // getters
     
@@ -64,9 +69,12 @@ public class Robotino implements Runnable
         motor3 = new Motor();
         omniDrive = new OmniDrive();
         bumper = new Bumper();
+        dist=new DistanceSensor();
         this.ipAdress=hostname;
         this.robotState=State.Free;
         this.videoState=State.Free;
+        busy=false;
+        cam=new Camera();
         
         // initialisation
         init();
@@ -93,6 +101,13 @@ public class Robotino implements Runnable
         omniDrive.setComId(com.id());
 
         bumper.setComId(com.id());
+        
+        dist.setComId(com.id());
+        cam.setComId(com.id());
+    }
+    
+    public void setBusy(boolean buzy){
+    	busy=buzy;
     }
 
     // connect

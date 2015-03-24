@@ -56,6 +56,7 @@ public class Client implements Runnable
 		JSONObject objJson = (JSONObject) obj;
 		this.app.interpretFeature(objJson);
 		
+		// ACK
 		JSONObject json = new JSONObject();
 		json.put("From", "tata");
 		this.writeMessage(json.toString());
@@ -108,28 +109,30 @@ public class Client implements Runnable
 			Thread.yield();
 		}*/
 		
-		
-		while(sockcli.isConnected() && bRun)
-		{
+		if (sockcli.isConnected() && bRun) {
 			JSONObject json = new JSONObject();
 			json.put("From", app.getIpHost());
 			json.put("To", app.getIpGestCom());
 			json.put("MsgType", "Ident");
 			json.put("EquipmentType", "Robot");
 			this.writeMessage(json.toString());
-			System.out.println("Fin de l ecoute"+json.toString());
-			bRun=false;
-//			try { 
-//				traitementReception(NetworkFlow.readMessage(in)); //reception du message
-//				JSONObject json = new JSONObject();
-//				json.put("From", "tata");
-//				this.writeMessage(json.toString());
-//				System.out.println("Fin de l ecoute"+json.toString());
-//			}
-//			catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+		}
+		while(sockcli.isConnected() && bRun)
+		{
+			
+			System.out.println("try");
+			//bRun=false;
+			try { 
+				traitementReception(NetworkFlow.readMessage(in)); //reception du message
+				JSONObject json2 = new JSONObject();
+				json2.put("From", "tata");
+				this.writeMessage(json2.toString());
+				System.out.println("Fin de l ecoute"+json2.toString());
+			}
+			catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} 
 		
 		try {

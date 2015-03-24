@@ -21,6 +21,7 @@ public class ApplicationRobotino
 	private static int GestCom_PORT = 6030;
 	private Client client;
 	private String ipHost;
+	private String ipRobot="193.48.125.37";
 	
 	// constructor
 	/**
@@ -93,7 +94,7 @@ public class ApplicationRobotino
 				String word = "error";
 				
 				// modification of the feature we want to use
-				switch ((String)json.get("OName")){
+				switch ((String)json.get("OrderName")){
 				case "Move" :
 					// we fix the time at 3 seconds
 					int time=3000;
@@ -122,15 +123,18 @@ public class ApplicationRobotino
 				case "Stop" :
 					word="Stop";
 					break;
+				case "ConnectTo":
+					word="Init";
 				default : System.out.println("it must have not happened ...");
 				}
 				
 				// execution of the feature
-				String ip="193.48.125.37";
+				//String ip="193.48.125.37";
 				for (Robotino rob : this.robots){
-		        	if (rob.getIpAdress().equals(ip)){
+		        	if (rob.getIpAdress().equals(ipRobot)){
 		        		for (Feature feat : this.features){
 		                	if (feat.getClass().getName().equals(word)){
+		                		System.out.println(json.toString());
 		                		runFeature(feat,rob);
 		                	}	
 		                }
@@ -149,14 +153,14 @@ public class ApplicationRobotino
     	//try {
     	ApplicationRobotino applicationTest = new ApplicationRobotino();
     	
-    	ExecutorService es = Executors.newFixedThreadPool(13); //Allow 10 connections (devices and robots mingled)
+    	/*ExecutorService es = Executors.newFixedThreadPool(13); //Allow 10 connections (devices and robots mingled)
     	applicationTest.client=new Client(es,applicationTest);
     	
-    	int iTestCo = applicationTest.client.connexion("193.48.125.68");
+    	int iTestCo = applicationTest.client.connexion(applicationTest.GestCom_IP);
 		
 		if(iTestCo == 1){
 			System.out.println("Connected");
-			es.execute(applicationTest.client);
+			es.execute(applicationTest.client);*/
 			
 			
 			String ip ="193.48.125.37"; 
@@ -165,7 +169,7 @@ public class ApplicationRobotino
 			// creation d'un move en particulier
 	        for (Feature feat : applicationTest.features){
 	        	if (feat.getClass().getName().equals("Move")){
-	        		((Move)(feat)).setParameters(0,0,60,3000);
+	        		((Move)(feat)).setParameters(200,0,0,3000);
 	        	}
 	        }
 	        
@@ -182,7 +186,7 @@ public class ApplicationRobotino
 	        }
 	        
 	        
-		} else System.out.println("Not Connected");
+		/*} else System.out.println("Not Connected");*/
     	
     	// initialisation du Scanner pour les entrees au clavier 
     	/*Scanner sc = new Scanner(System.in); 
