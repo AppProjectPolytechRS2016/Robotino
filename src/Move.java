@@ -71,7 +71,7 @@ public class Move extends Feature {
 		this.ySpeed=ySpeedInt;
 		this.thetaSpeed=thetaSpeedInt;
 		this.time=timeInt;
-	}
+	} 
 	
 	// runFeature
 	/**

@@ -149,7 +149,7 @@ public class ApplicationRobotino
 	
 	
     public static void main(String[] args)
-    {
+    { 
     	//try {
     	ApplicationRobotino applicationTest = new ApplicationRobotino();
     	

@@ -104,7 +104,7 @@ public class Robotino implements Runnable
         
         dist.setComId(com.id());
         cam.setComId(com.id());
-    }
+    } 
     
     public void setBusy(boolean buzy){
     	busy=buzy;

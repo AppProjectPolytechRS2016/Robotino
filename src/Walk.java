@@ -54,7 +54,7 @@ public class Walk extends Feature {
 			System.out.println(elapsedTime2);
             robotino.omniDrive.setVelocity(100, 0, 0);
             robotino.com.waitForUpdate();
-            
+             
             while((robotino.dist.voltage()>1)&&(elapsedTime2<timelimit)){
             	elapsedTime2 = System.currentTimeMillis() - startTime2;
             	if (!RR && !RR){
