@@ -106,9 +106,22 @@ public class Robotino implements Runnable
         cam.setComId(com.id());
     } 
     
+    // setBusy
+ 	/**
+      * to modify the state of robotino
+      * @param buzy the new state of the robotino
+      */
     public void setBusy(boolean buzy){
     	busy=buzy;
     }
+    
+    // getBusy
+  	/**
+       * to modify the state of robotino
+       */
+     public boolean getBusy(){
+     	return(busy);
+     }
 
     // connect
 	/**

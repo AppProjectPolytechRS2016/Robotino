@@ -29,9 +29,11 @@ public class Init extends Feature {
      * @param robot the robot on which we want to run the feature
      */
 	public void runFeature (Robotino robotino) {
+		
 		for (Feature feat : movements){
 			ApplicationRobotino.runFeature(feat,robotino);
 		}
+		
 	}
 
 }

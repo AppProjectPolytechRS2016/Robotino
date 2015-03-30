@@ -1,3 +1,4 @@
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
@@ -8,9 +9,9 @@ public class NetworkFlow
 	/**Methode permettant de lire le flux reseau d'entree et de convertir ce qui a ete lue en String*/
 	public static String readMessage(DataInputStream in) throws IOException,EOFException
 	{
-		int taille = in.readInt();		
+		int taille = in.available();		
 		byte message[]=new byte[taille];
-		int nb = in.read(message,0,taille);
+		in.readFully(message);
 		return new String(message);
 	}
 	
@@ -18,7 +19,15 @@ public class NetworkFlow
 	public static void writeMessage(DataOutputStream out, String s) throws IOException
 	{
 		byte message[] = s.getBytes();		
-		out.writeInt(message.length);
+		//out.writeInt(message.length);
 		out.write(message);
+	}
+	
+	public static String readMessageBis(BufferedReader in) throws IOException,EOFException
+	{
+		//String toto;
+		System.out.println("2");
+		return in.readLine();
+		//return in.read(toto);
 	}
 }

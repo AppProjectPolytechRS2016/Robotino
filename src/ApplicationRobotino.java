@@ -17,11 +17,12 @@ public class ApplicationRobotino
 	// attributes
 	private ArrayList<Feature> features;
 	private ArrayList<Robotino> robots;
-	private String GestCom_IP="193.48.125.68";
+	private String GestCom_IP="193.48.125.64";
 	private static int GestCom_PORT = 6030;
-	private Client client;
+	public Client client;
 	private String ipHost;
 	private String ipRobot="193.48.125.37";
+	
 	
 	// constructor
 	/**
@@ -32,11 +33,11 @@ public class ApplicationRobotino
 		features=new ArrayList<Feature>();
 		robots=new ArrayList<Robotino>();
 	
-		Feature move = new Move(0,0,0,0);
+		Feature move = new Move(0,0,60,3000);
 		features.add(move);
 		Feature init = new Init();
 		features.add(init);
-		Feature walk = new Walk();
+		Feature walk = new Walk(this);
 		features.add(walk);
 		Feature stop = new Stop();
 		features.add(stop);
@@ -55,6 +56,23 @@ public class ApplicationRobotino
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+	}
+	
+	public Client getClient(){
+		return client;
+	}
+	
+	public String getIpRobot(){
+		return ipRobot;
+	}
+	
+	public ArrayList<Feature> getFeatures(){
+		return features;
+	}
+	
+	public ArrayList<Robotino> getRobots(){
+		return robots;
 	}
 	
 	public String getIpHost(){
@@ -74,6 +92,9 @@ public class ApplicationRobotino
      */
 	public static void runFeature(Feature feature, Robotino robot){
 		try {
+			while (robot.getBusy()){
+				System.out.println("wait ...");
+			}
 			feature.runFeature(robot);
 			}
 		catch (Exception e)
@@ -125,56 +146,62 @@ public class ApplicationRobotino
 					break;
 				case "ConnectTo":
 					word="Init";
+					break;
+				case "End":
+					word="End";
+					break;
 				default : System.out.println("it must have not happened ...");
 				}
-				
-				// execution of the feature
-				//String ip="193.48.125.37";
-				for (Robotino rob : this.robots){
-		        	if (rob.getIpAdress().equals(ipRobot)){
-		        		for (Feature feat : this.features){
-		                	if (feat.getClass().getName().equals(word)){
-		                		System.out.println(json.toString());
-		                		runFeature(feat,rob);
-		                	}	
-		                }
-		        	}	
-		        }
+				if (word.equals("End")){
+					client.deco();
+					System.out.println("end of the application");
+				}
+				else {
+					// execution of the feature
+					for (Robotino rob : this.robots){
+			        	if (rob.getIpAdress().equals(ipRobot)){
+			        		for (Feature feat : this.features){
+			                	if (feat.getClass().getName().equals(word)){
+			                		System.out.println(json.toString());
+			                		runFeature(feat,rob);
+			                	}	
+			                }
+			        	}	
+			        }
+				}
 			}
 			else System.out.println("This message is not an order");
 		}
 		else System.out.println("This message is not for me");
 	}
 	
-	
-	
     public static void main(String[] args)
     { 
     	//try {
     	ApplicationRobotino applicationTest = new ApplicationRobotino();
     	
-    	/*ExecutorService es = Executors.newFixedThreadPool(13); //Allow 10 connections (devices and robots mingled)
+    	ExecutorService es = Executors.newFixedThreadPool(13); //Allow 10 connections (devices and robots mingled)
     	applicationTest.client=new Client(es,applicationTest);
     	
     	int iTestCo = applicationTest.client.connexion(applicationTest.GestCom_IP);
 		
 		if(iTestCo == 1){
 			System.out.println("Connected");
-			es.execute(applicationTest.client);*/
+			es.execute(applicationTest.client);
 			
-			
+			/*
 			String ip ="193.48.125.37"; 
 			
 			
 			// creation d'un move en particulier
 	        for (Feature feat : applicationTest.features){
 	        	if (feat.getClass().getName().equals("Move")){
-	        		((Move)(feat)).setParameters(200,0,0,3000);
+	        		((Move)(feat)).setParameters(100,0,0,3000);
 	        	}
 	        }
 	        
 	     // pour un robot
-	        String word = "Move";
+	        String word = "Init";
 	        for (Robotino rob : applicationTest.robots){
 	        	if (rob.getIpAdress().equals(ip)){
 	        		for (Feature feat : applicationTest.features){
@@ -183,10 +210,10 @@ public class ApplicationRobotino
 	                	}	
 	                }
 	        	}	
-	        }
-	        
-	        
-		/*} else System.out.println("Not Connected");*/
+	        }*/
+	      
+	      
+		} else System.out.println("Not Connected");
     	
     	// initialisation du Scanner pour les entrees au clavier 
     	/*Scanner sc = new Scanner(System.in); 

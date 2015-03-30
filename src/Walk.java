@@ -16,7 +16,7 @@ public class Walk extends Feature {
 	/**
      * to create new ApplicationRobotino object 
      */
-	public Walk() {
+	public Walk(ApplicationRobotino appli) {
 		name="walk";
 		movements=new ArrayList<Feature>();
 		movements.add(new Move(0,0,90,500));
@@ -41,10 +41,11 @@ public class Walk extends Feature {
         // rotate left
         boolean RL=false;
         
-        Feature rotate = new Move(0,0,-0,3000);
+        Feature rotate = new Move(0,0,0,3000);
         double nb;
         int angle=0;
         int timelimit=30000;
+       
 
         while (elapsedTime2<timelimit)
         {
@@ -54,28 +55,37 @@ public class Walk extends Feature {
 			System.out.println(elapsedTime2);
             robotino.omniDrive.setVelocity(100, 0, 0);
             robotino.com.waitForUpdate();
-             
-            while((robotino.dist.voltage()>1)&&(elapsedTime2<timelimit)){
+            System.out.println(robotino.dist.voltage());
+            while((robotino.dist.voltage()>0.5)&&(elapsedTime2<timelimit)){
+            	
             	elapsedTime2 = System.currentTimeMillis() - startTime2;
             	if (!RR && !RR){
             		nb=Math.random();
-                	if (nb<0.5){
+            		
+                	if (nb<(double)(0.5)){
                 		angle=-90;
+                		RL=true;
                 	}
                 	else {
                 		angle=90;
+                		RR=true;
                 	}
             	}
             	else if (RL){
-            		angle=-90;            		
+            		
+            		angle=-90;   
+            		RL=true;
             	}
             	else {
+            		
             		angle=90;
+            		RR=true;
             	}
             	((Move)rotate).setParameters(0,0,(int)(angle/1.5),1500);
             	ApplicationRobotino.runFeature(rotate,robotino);
+            	/*use=false;
             	RL=(angle==-90);
-            	RR=(angle==90);
+            	RR=(angle==90);*/
             }
             
         } 

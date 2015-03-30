@@ -81,7 +81,7 @@ public class Move extends Feature {
      */
 	
 	public void runFeature (Robotino robotino) {
-	    
+			robotino.setBusy(true);
 	        long startTime = System.currentTimeMillis();
 	        long elapsedTime=0;
 	        
@@ -97,5 +97,7 @@ public class Move extends Feature {
 	            
 	            
 	        } 
+			robotino.setBusy(false);
+
 	}
 }
