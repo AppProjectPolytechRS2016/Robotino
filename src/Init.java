@@ -17,9 +17,10 @@ public class Init extends Feature {
      * to create new ApplicationRobotino object 
      */
 	public Init() {
+		this.name="Init";
 		movements=new ArrayList<Feature>();
 		movements.add(new Move(0,0,90,500));
-		movements.add(new Move(0,0,-90,350));	
+		movements.add(new Move(0,0,-90,500));	
 	}
 	
 	// runFeature

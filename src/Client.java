@@ -1,8 +1,10 @@
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.io.InputStreamReader;
@@ -62,7 +64,6 @@ public class Client implements Runnable
 	}
 	
 	public void traitementReception(String sMessage){
-		//System.out.println("Message recu par robotino : "+sMessage);
 		if(sMessage.length() != 0){
 			System.out.println(sMessage.length());
 			System.out.println("Message recu par robotino : "+sMessage);
@@ -78,21 +79,30 @@ public class Client implements Runnable
 				System.out.println("C'est pour moi !");
 				if (msgType.equals("Order")){
 					
-					// construction de l'ACK interpretation de la feature
+					// construction of the ACK execution of the feature
 					
 					JSONObject json = new JSONObject();
 					json.put("From", app.getIpHost());
 					json.put("To", from);
 					json.put("MsgType", "Ack");
-					json.put("Received", true);
-					
-					this.app.interpretFeature(objJson);
-					json.put("OrderAccepted", true);
 					
 					if (order.equals("ConnectTo")){
-						json.put("FeatureList", app.getFeatures());
+						ArrayList<String> feat=new ArrayList<String>();
+						for (Feature ft : app.getFeatures()){
+							feat.add(ft.getName());
+						}
+						json.put("FeatureList", feat);
+					}
+					else if (order.equals("Stop")){
+						json.put("End", true);
+					}
+					else {
+						//json.put("Received", true);
+						json.put("OrderAccepted", true);
 					}
 					this.writeMessage(json.toString());
+					
+					this.app.interpretFeature(objJson);
 						
 				}
 			}
@@ -109,14 +119,14 @@ public class Client implements Runnable
 	}
 
 	public void deco(){
-		try {
+		
 			JSONObject json = new JSONObject();
 			json.put("From", app.getIpHost());
 			json.put("To", app.getIpGestCom());
-			json.put("MsgType", "LogOut");
-			json.put("EquipmentType", "Robot");
+			json.put("MsgType", "Logout");
 			this.writeMessage(json.toString());
 			
+		try {	
 			System.out.println("1");
 			this.sockcli.close();
 			System.out.println("2");
@@ -133,13 +143,27 @@ public class Client implements Runnable
 		
 		bRun  = true;
 		String sChaine="";
-		/*String sChaine;
-		while(bRun){
-			try {
+		
+		
+		if (sockcli.isConnected() && bRun) {
+			JSONObject json = new JSONObject();
+			json.put("From", app.getIpHost());
+			json.put("To", app.getIpGestCom());
+			json.put("MsgType", "Ident");
+			json.put("EquipmentType", "Robot");
+			this.writeMessage(json.toString());
+		}
+		while(bRun && sockcli.isConnected())
+		{
+			try { 
+				while (currentRobot.getBusy()){}
 				sChaine = NetworkFlow.readMessage(in); //Lecture des messages venant du client
+				//sChaine = NetworkFlow.readMessageBis(this.inBuffer); //Lecture des messages venant du client
 				traitementReception(sChaine);
+				
 			}
 			catch(EOFException a){
+				System.out.println("eof exception caught");
 				bRun = false;
 				try {
 					this.sockcli.close();
@@ -152,47 +176,9 @@ public class Client implements Runnable
 			catch (IOException e){
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				System.exit(0);	
-			}	
+				//System.exit(0);
+			}
 			Thread.yield();
-		}*/
-		
-		if (sockcli.isConnected() && bRun) {
-			JSONObject json = new JSONObject();
-			json.put("From", app.getIpHost());
-			json.put("To", app.getIpGestCom());
-			json.put("MsgType", "Ident");
-			json.put("EquipmentType", "Robot");
-			this.writeMessage(json.toString());
-		}
-		while(bRun && sockcli.isConnected())
-		{
-			//bRun=false;
-			try { 
-				while (currentRobot.getBusy()){}
-				sChaine = NetworkFlow.readMessage(in); //Lecture des messages venant du client
-				//sChaine = NetworkFlow.readMessageBis(this.inBuffer); //Lecture des messages venant du client
-				traitementReception(sChaine);
-				//JSONObject json2 = new JSONObject();
-				//json2.put("From", "tata");
-				//this.writeMessage(json2.toString());
-				//System.out.println("Fin de l ecoute"+json2.toString());
-			
-			}
-			catch (IOException e) {
-				bRun=false;
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		//Thread.yield();
-		
-		try {
-			sockcli.close();
-		} 
-		catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 

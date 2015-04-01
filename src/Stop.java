@@ -13,7 +13,7 @@ public class Stop extends Feature {
      * to create new ApplicationRobotino object 
      */
 	public Stop() {
-		name="stop";
+		name="Stop";
 	}
 	
 	// runFeature

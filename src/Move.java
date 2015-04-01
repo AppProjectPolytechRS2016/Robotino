@@ -66,7 +66,7 @@ public class Move extends Feature {
      * to create new ApplicationRobotino object 
      */
 	public Move(int xSpeedInt, int ySpeedInt, int thetaSpeedInt, int timeInt){
-		this.name="move";
+		this.name="Move";
 		this.xSpeed=xSpeedInt;
 		this.ySpeed=ySpeedInt;
 		this.thetaSpeed=thetaSpeedInt;
@@ -88,15 +88,19 @@ public class Move extends Feature {
 	        while (!Thread.interrupted() 
 	        		&& robotino.com.isConnected() 
 	        		&& false == robotino.bumper.value()
-	        		&&(elapsedTime<time)
-	        		&&(robotino.dist.voltage()<0.5))
+	        		&&(elapsedTime<time))
+	        		//&&(robotino.dist.voltage()<0.5))
 	        {
 				elapsedTime = System.currentTimeMillis() - startTime;
 	            robotino.omniDrive.setVelocity(xSpeed, ySpeed, thetaSpeed);
 	            robotino.com.waitForUpdate();
 	            
 	            
-	        } 
+	        }
+	        if (!Thread.interrupted() 
+	        		&& robotino.com.isConnected()){
+	        	robotino.omniDrive.setVelocity(0, 0, 0);
+	        }
 			robotino.setBusy(false);
 
 	}

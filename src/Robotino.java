@@ -103,6 +103,7 @@ public class Robotino implements Runnable
         bumper.setComId(com.id());
         
         dist.setComId(com.id());
+        dist.setSensorNumber(0);
         cam.setComId(com.id());
     } 
     

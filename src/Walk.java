@@ -17,7 +17,7 @@ public class Walk extends Feature {
      * to create new ApplicationRobotino object 
      */
 	public Walk(ApplicationRobotino appli) {
-		name="walk";
+		name="Walk";
 		movements=new ArrayList<Feature>();
 		movements.add(new Move(0,0,90,500));
 		movements.add(new Move(60,0,0,3000));
