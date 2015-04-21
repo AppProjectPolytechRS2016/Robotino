@@ -22,6 +22,7 @@ public class ApplicationRobotino
 	public Client client;
 	private String ipHost;
 	private String ipRobot="193.48.125.37";
+	private GraphiqueInterface app;
 	
 	
 	// constructor
@@ -46,16 +47,15 @@ public class ApplicationRobotino
 		Robotino robotino1 = new Robotino(hostname1);
 		robots.add(robotino1);
 		
-		/*String hostname2 = System.getProperty("hostname", "193.48.125.38");
-		Robotino robotino2 = new Robotino(hostname2);
-		robots.add(robotino2);*/
-		
 		try {
 			ipHost=InetAddress.getLocalHost().getHostAddress();
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		app=new GraphiqueInterface(this);
+		
 		
 	}
 	
@@ -157,21 +157,22 @@ public class ApplicationRobotino
 				switch ((String)json.get("OrderName")){
 				
 				case "Move" :
-					if (!(json.containsKey("ParamX"))){
+					if (!(json.containsKey("XValue"))){
 						System.out.println("Default move");
 					}
 					else {
 						// we fix the time at 3 seconds
-						int time=3000;
+						float time=3000;
 						
 						// we get the parameters from the JSON
-						int xSpeed=(int)json.get("ParamX")/time;
-						int ySpeed=(int)json.get("ParamY")/time;
-						int thetaSpeed=(int)json.get("ParamTheta")/time;
+						float xSpeed=(long)json.get("XValue")*10000/time;
+						float ySpeed=(long)json.get("YValue")*10000/time;
+						float thetaSpeed=(long)json.get("ThetaValue")*1000/time;
 						
 						for (Feature feat : this.features){
 				        	if (feat.getClass().getName().equals("Move")){
 				        		((Move)(feat)).setParameters(xSpeed,ySpeed,thetaSpeed,time);
+				        		System.out.println("move modified : x ="+xSpeed+" y = "+ySpeed+" theta = "+thetaSpeed);
 				        	}
 				        }
 					}
@@ -203,7 +204,7 @@ public class ApplicationRobotino
 				}
 				
 				if (word.equals("Stop")){
-					client.deco();
+					//client.deco();
 				}
 				
 				else {
@@ -238,86 +239,10 @@ public class ApplicationRobotino
 		if(iTestCo == 1){
 			System.out.println("Connected");
 			es.execute(applicationTest.client);
-			
-			
-			
-			/*
-			// creation d'un move en particulier
-	        for (Feature feat : applicationTest.features){
-	        	if (feat.getClass().getName().equals("Move")){
-	        		((Move)(feat)).setParameters(0,0,60,3000);
-	        	}
-	        }
-	        
-	     // pour un robot
-	        String word = "Walk";
-	        for (Robotino rob : applicationTest.robots){
-	        	if (rob.getIpAdress().equals(applicationTest.ipRobot)){
-	        		for (Feature feat : applicationTest.features){
-	                	if (feat.getClass().getName().equals(word)){
-	                		runFeature(feat,rob);
-	                	}	
-	                }
-	        	}	
-	        }
-	     */
 	      
 		} else System.out.println("Not Connected");
     	
-    	// initialisation du Scanner pour les entrees au clavier 
-    	/*Scanner sc = new Scanner(System.in); 
-    	System.out.println("Please enter the Ip Adress of the Com' Manager (193.48.125.68)"); 
-    	String str = sc.nextLine(); 
-    	System.out.println("You said : " + str);
-    	*/
-    	
-        
-        
-    	
-        
-        
-        
-        /*Feature m1 = new Move(60,0,0,500);
-        Feature m2 = new Move(0,0,-90,500);
-        Feature i1 = new InitRobot();
-        Feature m3 = new Move (0,60,0,500);
-        Feature m4 = new Move (0,0,60,3000);
-        applicationTest.features.add(m1);
-        applicationTest.features.add(m2);
-        applicationTest.features.add(i1);
-        applicationTest.features.add(m3);
-        applicationTest.features.add(m4);*/
-        //new Robotino(hostname).run();
-        
-        
-        
-        // pour deux robots
-        /*String word = "Walk";
-        for (Robotino rob : applicationTest.robots){
-        		for (Feature feat : applicationTest.features){
-                	if (feat.getClass().getName().equals(word)){
-                		runFeature(feat,rob);
-                	}	
-                }
-        		
-        }*/
-        
-        
-        
-        
-        //runFeature(m2,robotTest);
-    	
-    
-    /*}
-        
-        // gestion des exceptions
-        catch (UnknownHostException e) {	
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-        	e.printStackTrace();
-        }*/	
-        
+ 
     }
 
 }

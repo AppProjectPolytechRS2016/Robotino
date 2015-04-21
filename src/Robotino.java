@@ -22,7 +22,7 @@ public class Robotino implements Runnable
     };
     private String ipAdress;
     private State robotState;
-    private State videoState;
+    private String ipUser;
     private final RobotType type=RobotType.Robotino;
     protected final DistanceSensor dist;
     boolean busy;
@@ -32,10 +32,6 @@ public class Robotino implements Runnable
     
     public State getRobotState(){
     	return(robotState);
-    }
-    
-    public State getVideoState(){
-    	return(videoState);
     }
     
     public String getIpAdress(){
@@ -51,10 +47,15 @@ public class Robotino implements Runnable
     public void setRobotState(State state){
     	this.robotState=state;
     }
-
-    public void setVideoState(State state){
-    	this.videoState=state;
+    
+    public String getIpUser(){
+    	return(ipUser);
     }
+    
+    public void setIpUser(String ip){
+    	this.ipUser=ip;
+    }
+
 
     // constructor
 	/**
@@ -72,8 +73,8 @@ public class Robotino implements Runnable
         dist=new DistanceSensor();
         this.ipAdress=hostname;
         this.robotState=State.Free;
-        this.videoState=State.Free;
         busy=false;
+        ipUser="error";
         cam=new Camera();
         
         // initialisation

@@ -87,22 +87,48 @@ public class Client implements Runnable
 					json.put("MsgType", "Ack");
 					
 					if (order.equals("ConnectTo")){
-						ArrayList<String> feat=new ArrayList<String>();
-						for (Feature ft : app.getFeatures()){
-							feat.add(ft.getName());
+						if (currentRobot.getIpUser().equals("error")){
+							currentRobot.setIpUser(from);
+							
 						}
-						json.put("FeatureList", feat);
-					}
-					else if (order.equals("Stop")){
-						json.put("End", true);
+						if (currentRobot.getIpUser().equals(from)){
+							ArrayList<String> feat=new ArrayList<String>();
+							for (Feature ft : app.getFeatures()){
+								feat.add(ft.getName());
+							}
+							json.put("FeatureList", feat);
+							this.app.interpretFeature(objJson);
+						}
+						else {
+							json.put("OrderAccepted", false);
+						}
 					}
 					else {
-						//json.put("Received", true);
-						json.put("OrderAccepted", true);
+						if (currentRobot.getIpUser().equals(from)){
+							if (order.equals("Stop")){
+								json.put("OrderAccepted", true);
+								json.put("End", true);
+							}
+							else if (order.equals("Disconnect")){
+								json.put("Disconnected", true);
+								currentRobot.setIpUser("error");
+							}
+							else {
+								//json.put("Received", true);
+								json.put("OrderAccepted", true);
+							}
+						
+							
+							this.app.interpretFeature(objJson);
+						}
+						else {
+							json.put("OrderAccepted", false);
+						}
 					}
 					this.writeMessage(json.toString());
-					
-					this.app.interpretFeature(objJson);
+					if (order.equals("Stop")){
+						app.client.deco();
+					}
 						
 				}
 			}
@@ -163,7 +189,7 @@ public class Client implements Runnable
 				
 			}
 			catch(EOFException a){
-				System.out.println("eof exception caught");
+				
 				bRun = false;
 				try {
 					this.sockcli.close();

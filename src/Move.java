@@ -5,10 +5,10 @@ public class Move extends Feature {
 	
 	// attributes
 	private String name;
-	private int xSpeed;
-	private int ySpeed;
-	private int thetaSpeed;
-	private int time;
+	private float xSpeed;
+	private float ySpeed;
+	private float thetaSpeed;
+	private float time;
 	protected final float[] startVector = new float[]
 	{
 	    200.0f, 0.0f
@@ -20,41 +20,41 @@ public class Move extends Feature {
 		return name;
 	}
 	
-	public int getxSpeed() {
+	public float getxSpeed() {
 		return xSpeed;
 	}
 	
-	public int getySpeed() {
+	public float getySpeed() {
 		return ySpeed;
 	}
 
-	public int getThetaSpeed() {
+	public float getThetaSpeed() {
 		return thetaSpeed;
 	}
 	
-	public int getTime() {
+	public float getTime() {
 		return time;
 	}
 	
 	// setters
 	
-	public void setxSpeed(int xSpeed) {
+	public void setxSpeed(float xSpeed) {
 		this.xSpeed = xSpeed;
 	}
 
-	public void setySpeed(int ySpeed) {
+	public void setySpeed(float ySpeed) {
 		this.ySpeed = ySpeed;
 	}
 
-	public void setThetaSpeed(int thetaSpeed) {
+	public void setThetaSpeed(float thetaSpeed) {
 		this.thetaSpeed = thetaSpeed;
 	}
 
-	public void setTime(int time) {
+	public void setTime(float time) {
 		this.time = time;
 	}
 	
-	public void setParameters(int xSpeed, int ySpeed, int thetaSpeed, int time){
+	public void setParameters(float xSpeed, float ySpeed, float thetaSpeed, float time){
 		setxSpeed(xSpeed);
 		setySpeed(ySpeed);
 		setThetaSpeed(thetaSpeed);
@@ -65,7 +65,7 @@ public class Move extends Feature {
 	/**
      * to create new ApplicationRobotino object 
      */
-	public Move(int xSpeedInt, int ySpeedInt, int thetaSpeedInt, int timeInt){
+	public Move(float xSpeedInt, float ySpeedInt, float thetaSpeedInt, float timeInt){
 		this.name="Move";
 		this.xSpeed=xSpeedInt;
 		this.ySpeed=ySpeedInt;

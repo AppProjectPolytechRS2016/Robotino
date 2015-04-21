@@ -88,8 +88,10 @@ public class Walk extends Feature {
             	RR=(angle==90);*/
             }
             
-        } 
-		
+        }
+        
+        ((Move)rotate).setParameters(0,0,0,10);
+    	ApplicationRobotino.runFeature(rotate,robotino);
 //		for (Feature feat : movements){
 //			ApplicationRobotino.runFeature(feat,robotino);
 //		}
