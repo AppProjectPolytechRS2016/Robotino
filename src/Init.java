@@ -3,18 +3,25 @@ import java.util.ArrayList;
 
 public class Init extends Feature {
 	
+	// attributes
 	private String name;
 	private ArrayList<Feature> movements;
 	
 	// getters
 	
+	// getName
+	/**
+     * to get the name of the feature
+     * 
+     * @return the name of the feature
+     */
 	public String getName(){
 		return name;
 	}
 	
 	// constructor
 	/**
-     * to create new ApplicationRobotino object 
+     * to create new init object 
      */
 	public Init() {
 		this.name="Init";

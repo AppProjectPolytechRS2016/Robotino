@@ -4,13 +4,19 @@ public class Stop extends Feature {
 	
 	// getters
 	
+	// getName
+	/**
+     * to get the name of the feature
+     * 
+     * @return the name of the feature
+     */
 	public String getName(){
 		return name;
 	}
 	
 	// constructor
 	/**
-     * to create new ApplicationRobotino object 
+     * to create new stop object 
      */
 	public Stop() {
 		name="Stop";

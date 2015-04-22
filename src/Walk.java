@@ -3,26 +3,27 @@ import java.util.ArrayList;
 
 public class Walk extends Feature {
 	
+	
 	private String name;
-	private ArrayList<Feature> movements;
 	
 	// getters
 	
+	// getName
+	/**
+     * to get the name of the feature
+     * 
+     * @return the name of the feature
+     */
 	public String getName(){
 		return name;
 	}
 	
 	// constructor
 	/**
-     * to create new ApplicationRobotino object 
+     * to create new walk object 
      */
 	public Walk(ApplicationRobotino appli) {
-		name="Walk";
-		movements=new ArrayList<Feature>();
-		movements.add(new Move(0,0,90,500));
-		movements.add(new Move(60,0,0,3000));
-		movements.add(new Move(-60,60,0,3000));
-		movements.add(new Move(0,0,-90,350));	
+		name="Walk";	
 	}
 	
 	// runFeature
@@ -83,18 +84,13 @@ public class Walk extends Feature {
             	}
             	((Move)rotate).setParameters(0,0,(int)(angle/1.5),1500);
             	ApplicationRobotino.runFeature(rotate,robotino);
-            	/*use=false;
-            	RL=(angle==-90);
-            	RR=(angle==90);*/
+            	
             }
             
         }
         
         ((Move)rotate).setParameters(0,0,0,10);
     	ApplicationRobotino.runFeature(rotate,robotino);
-//		for (Feature feat : movements){
-//			ApplicationRobotino.runFeature(feat,robotino);
-//		}
 	}
 
 }

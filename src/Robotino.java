@@ -6,7 +6,7 @@ import rec.robotino.com.Motor;
 import rec.robotino.com.OmniDrive;
 import rec.robotino.com.DistanceSensor;
 
-public class Robotino implements Runnable
+public class Robotino extends Robot implements Runnable
 {
 	// attributes
     protected final String hostname;
@@ -30,28 +30,64 @@ public class Robotino implements Runnable
     
     // getters
     
+    // getRobotState
+	/**
+	  * to get the state of the robot
+	  * 
+	  * @return the state of the robot
+	  */
     public State getRobotState(){
     	return(robotState);
     }
     
+    // getIpAdress
+   	/**
+   	  * to get the ip adress of the robot
+   	  * 
+   	  * @return the ip adress of the robot
+   	  */
     public String getIpAdress(){
     	return(ipAdress);
     }
     
+    // getRobotType
+   	/**
+   	  * to get the type of the robot
+   	  * 
+   	  * @return the type of the robot
+   	  */
     public RobotType getRobotType(){
     	return(type);
     }
     
-    // setters
-    
-    public void setRobotState(State state){
-    	this.robotState=state;
-    }
-    
+    // getIpUser
+    /**
+     * to get the ip of the user of the robot
+     * 
+     * @return the ip of the current user of the robot
+     */
     public String getIpUser(){
     	return(ipUser);
     }
     
+    // setters
+    
+    // setRobotState
+ 	/**
+      * to set the state of the robot
+      * 
+      * @param state the state of the robot
+      */
+    public void setRobotState(State state){
+    	this.robotState=state;
+    }
+    
+    // setRobotState
+  	/**
+	   * to set the state of the robot
+	   * 
+	   * @param state the state of the robot
+	   */
     public void setIpUser(String ip){
     	this.ipUser=ip;
     }
@@ -132,7 +168,9 @@ public class Robotino implements Runnable
      */
     protected void connect(String hostname)
     {
+    	
         com.setAddress(hostname);
+        com.disconnect();
         com.connect();
     }
 

@@ -22,7 +22,7 @@ public class ApplicationRobotino
 	public Client client;
 	private String ipHost;
 	private String ipRobot="193.48.125.37";
-	private GraphiqueInterface app;
+	private GraphicInterface app;
 	
 	
 	// constructor
@@ -54,7 +54,7 @@ public class ApplicationRobotino
 			e.printStackTrace();
 		}
 		
-		app=new GraphiqueInterface(this);
+		app=new GraphicInterface(this);
 		
 		
 	}
@@ -205,6 +205,7 @@ public class ApplicationRobotino
 				
 				if (word.equals("Stop")){
 					//client.deco();
+					// not correct to do it there because the Json message for the end is send after
 				}
 				
 				else {
@@ -228,13 +229,12 @@ public class ApplicationRobotino
 	
     public static void main(String[] args)
     { 
-    	//try {
     	ApplicationRobotino applicationTest = new ApplicationRobotino();
     	
-    	ExecutorService es = Executors.newFixedThreadPool(13); //Allow 10 connections (devices and robots mingled)
+    	ExecutorService es = Executors.newFixedThreadPool(100); //Allow 100 connections (devices and robots mingled)
     	applicationTest.client=new Client(es,applicationTest);
     	
-    	int iTestCo = applicationTest.client.connexion(applicationTest.GestCom_IP);
+    	int iTestCo = applicationTest.client.connection(applicationTest.GestCom_IP);
 		
 		if(iTestCo == 1){
 			System.out.println("Connected");

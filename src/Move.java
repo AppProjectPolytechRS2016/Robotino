@@ -16,44 +16,107 @@ public class Move extends Feature {
 
 	// getters
 	
+	// getName
+	/**
+     * to get the name of the feature
+     * 
+     * @return the name of the feature
+     */
 	public String getName() {
 		return name;
 	}
 	
+	// getxSpeed
+	/**
+     * to get the xSpeed of the move
+     * 
+     * @return the xSpeed of the move
+     */
 	public float getxSpeed() {
 		return xSpeed;
 	}
 	
+	// getySpeed
+	/**
+     * to get the ySpeed of the move
+     * 
+     * @return the ySpeed of the move
+     */
 	public float getySpeed() {
 		return ySpeed;
 	}
 
+	// getThetaSpeed
+	/**
+     * to get the thetaSpeed of the move
+     * 
+     * @return the thetaSpeed of the move
+     */
 	public float getThetaSpeed() {
 		return thetaSpeed;
 	}
 	
+	// getTime
+	/**
+     * to get the time of the move
+     * 
+     * @return the time of the move
+     */
 	public float getTime() {
 		return time;
 	}
 	
 	// setters
 	
+	// setxSpeed
+	/**
+     * to set the xSpeed of the move
+     * 
+     * @param xSpeed the xSpeed of the move
+     */
 	public void setxSpeed(float xSpeed) {
 		this.xSpeed = xSpeed;
 	}
 
+	// setySpeed
+	/**
+     * to set the ySpeed of the move
+     * 
+     * @param ySpeed the ySpeed of the move
+     */
 	public void setySpeed(float ySpeed) {
 		this.ySpeed = ySpeed;
 	}
 
+	// setThetaSpeed
+	/**
+     * to set the thetaSpeed of the move
+     * 
+     * @param thetaSpeed the thetaSpeed of the move
+     */
 	public void setThetaSpeed(float thetaSpeed) {
 		this.thetaSpeed = thetaSpeed;
 	}
 
+	// setTime
+	/**
+     * to set the time of the move
+     * 
+     * @param time the time of the move
+     */
 	public void setTime(float time) {
 		this.time = time;
 	}
 	
+	// setParameters
+	/**
+     * to set all the parameters of the move
+     * 
+     * @param xSpeed the xSpeed of the move
+     * @param ySpeed the ySpeed of the move
+     * @param thetaSpeed the thetaSpeed of the move
+     * @param time the time of the move
+     */
 	public void setParameters(float xSpeed, float ySpeed, float thetaSpeed, float time){
 		setxSpeed(xSpeed);
 		setySpeed(ySpeed);
@@ -63,7 +126,7 @@ public class Move extends Feature {
 	
 	// constructor
 	/**
-     * to create new ApplicationRobotino object 
+     * to create new Move object 
      */
 	public Move(float xSpeedInt, float ySpeedInt, float thetaSpeedInt, float timeInt){
 		this.name="Move";

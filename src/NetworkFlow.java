@@ -6,7 +6,13 @@ import java.io.IOException;
 
 public class NetworkFlow
 {
-	/**Methode permettant de lire le flux reseau d'entree et de convertir ce qui a ete lue en String*/
+	// readMessage
+	/**
+     * to read a message on the socket
+     * 
+     * @param in DataStream linked to the socket
+     * @return the message read
+     */
 	public static String readMessage(DataInputStream in) throws IOException,EOFException
 	{
 		int taille = in.available();		
@@ -15,6 +21,13 @@ public class NetworkFlow
 		return new String(message);
 	}
 	
+	// writeMessage
+	/**
+     * to write a message on the socket
+     * 
+     * @param out DataStream linked to the socket
+     * @param s the string in want to send
+     */
 	/**Methode permettant d'ecrire un message sur le flux reseau de sortie */
 	public static void writeMessage(DataOutputStream out, String s) throws IOException
 	{
@@ -23,6 +36,13 @@ public class NetworkFlow
 		out.write(message);
 	}
 	
+	// readMessageBis
+	/**
+     * to read a message on the socket
+     * 
+     * @param in DataStream linked to the socket
+     * @return the message read
+     */
 	public static String readMessageBis(BufferedReader in) throws IOException,EOFException
 	{
 		//String toto;
