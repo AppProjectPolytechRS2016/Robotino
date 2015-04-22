@@ -26,7 +26,7 @@ public class Robotino extends Robot implements Runnable
     private final RobotType type=RobotType.Robotino;
     protected final DistanceSensor dist;
     boolean busy;
-    protected final Camera cam;
+    //protected final Camera cam;
     
     // getters
     
@@ -111,7 +111,7 @@ public class Robotino extends Robot implements Runnable
         this.robotState=State.Free;
         busy=false;
         ipUser="error";
-        cam=new Camera();
+        //cam=new Camera();
         
         // initialisation
         init();
@@ -141,7 +141,7 @@ public class Robotino extends Robot implements Runnable
         
         dist.setComId(com.id());
         dist.setSensorNumber(0);
-        cam.setComId(com.id());
+        //cam.setComId(com.id());
     } 
     
     // setBusy
@@ -170,7 +170,7 @@ public class Robotino extends Robot implements Runnable
     {
     	
         com.setAddress(hostname);
-        com.disconnect();
+        //com.disconnect();
         com.connect();
     }
 

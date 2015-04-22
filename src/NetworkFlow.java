@@ -32,7 +32,6 @@ public class NetworkFlow
 	public static void writeMessage(DataOutputStream out, String s) throws IOException
 	{
 		byte message[] = s.getBytes();		
-		//out.writeInt(message.length);
 		out.write(message);
 	}
 	
@@ -45,9 +44,6 @@ public class NetworkFlow
      */
 	public static String readMessageBis(BufferedReader in) throws IOException,EOFException
 	{
-		//String toto;
-		System.out.println("2");
 		return in.readLine();
-		//return in.read(toto);
 	}
 }

@@ -82,7 +82,6 @@ public class Client implements Runnable
      */
 	public void receptionTreatment(String sMessage){
 		if(sMessage.length() != 0){
-			System.out.println(sMessage.length());
 			System.out.println("Message recu par robotino : "+sMessage);
 			Object obj = JSONValue.parse(sMessage);
 			JSONObject objJson = (JSONObject) obj;
@@ -154,6 +153,7 @@ public class Client implements Runnable
 					// if the order is Stop, a message End is sent and the connection with the robot is closed
 					if (order.equals("Stop")){
 						app.client.deco();
+						app.runFeature(new Stop(), currentRobot);
 					}	
 				}
 			}

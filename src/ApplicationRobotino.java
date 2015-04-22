@@ -200,12 +200,17 @@ public class ApplicationRobotino
 					word="Init";
 					break;
 					
+				case "Disconnect":
+					word="Disconnect";
+					break;
+					
 				default : System.out.println("it must have not happened ...");
 				}
 				
-				if (word.equals("Stop")){
+				if (word.equals("Stop")||word.equals("Disconnect")){
 					//client.deco();
 					// not correct to do it there because the Json message for the end is send after
+					System.out.println("the order is : "+word);
 				}
 				
 				else {
