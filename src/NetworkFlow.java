@@ -11,7 +11,7 @@ public class NetworkFlow
      * to read a message on the socket
      * 
      * @param in DataStream linked to the socket
-     * @return the message read
+     * @return the message read 
      */
 	public static String readMessage(DataInputStream in) throws IOException,EOFException
 	{

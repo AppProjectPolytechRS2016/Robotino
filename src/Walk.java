@@ -45,7 +45,7 @@ public class Walk extends Feature {
         Feature rotate = new Move(0,0,0,3000);
         double nb;
         int angle=0;
-        int timelimit=30000;
+        int timelimit=30000; 
        
 
         while (elapsedTime2<timelimit)

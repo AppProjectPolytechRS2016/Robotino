@@ -216,7 +216,7 @@ public class ApplicationRobotino
 				else {
 					// execution of the feature
 					for (Robotino rob : this.robots){
-			        	if (rob.getIpAdress().equals(ipRobot)){
+			        	if (rob.getIpAdress().equals(ipRobot)){ 
 			        		for (Feature feat : this.features){
 			                	if (feat.getClass().getName().equals(word)){
 			                		System.out.println(json.toString());

@@ -11,7 +11,7 @@ public class Feature {
      * @return the name of the feature
      */
 	public String getName(){
-		return name;
+		return name; 
 	}
 	
 	// runFeature

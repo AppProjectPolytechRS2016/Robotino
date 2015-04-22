@@ -43,7 +43,7 @@ public class Robotino extends Robot implements Runnable
     // getIpAdress
    	/**
    	  * to get the ip adress of the robot
-   	  * 
+   	  *  
    	  * @return the ip adress of the robot
    	  */
     public String getIpAdress(){

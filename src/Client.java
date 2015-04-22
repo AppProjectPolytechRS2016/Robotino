@@ -153,7 +153,7 @@ public class Client implements Runnable
 					// if the order is Stop, a message End is sent and the connection with the robot is closed
 					if (order.equals("Stop")){
 						app.client.deco();
-						app.runFeature(new Stop(), currentRobot);
+						app.runFeature(new Stop(), currentRobot);  
 					}	
 				}
 			}

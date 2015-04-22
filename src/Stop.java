@@ -17,7 +17,7 @@ public class Stop extends Feature {
 	// constructor
 	/**
      * to create new stop object 
-     */
+     */ 
 	public Stop() {
 		name="Stop";
 	}

@@ -18,7 +18,7 @@ public class Init extends Feature {
 	public String getName(){
 		return name;
 	}
-	
+	 
 	// constructor
 	/**
      * to create new init object 

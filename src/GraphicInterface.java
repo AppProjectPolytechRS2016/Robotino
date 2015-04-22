@@ -159,7 +159,7 @@ public class GraphicInterface extends JFrame implements ActionListener{
         	action(word);
             break;
             
-        // quit action
+        // quit action 
         case "quit":
             quit();
             break;

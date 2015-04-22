@@ -115,7 +115,7 @@ public class Move extends Feature {
      * @param xSpeed the xSpeed of the move
      * @param ySpeed the ySpeed of the move
      * @param thetaSpeed the thetaSpeed of the move
-     * @param time the time of the move
+     * @param time the time of the move 
      */
 	public void setParameters(float xSpeed, float ySpeed, float thetaSpeed, float time){
 		setxSpeed(xSpeed);
